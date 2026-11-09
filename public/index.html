@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔓 Lua Deobfuscator - ถอดรหัส Lua/Luau Obfuscation</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="bg-animation">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">
+        <div class="logo-icon">🔓</div>
+        <div class="logo-text">
+          <h1>Lua Deobfuscator</h1>
+          <p>เครื่องมือถอดรหัส Lua/Luau Obfuscation</p>
+        </div>
+      </div>
+      <div class="header-badge">
+        <span class="badge">Luraph</span>
+        <span class="badge">IronBrew</span>
+        <span class="badge">Generic</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <!-- Upload Section -->
+    <section class="upload-section" id="uploadSection">
+      <div class="upload-card">
+        <div class="upload-area" id="dropZone">
+          <div class="upload-icon">📁</div>
+          <h3>ลากไฟล์มาวางที่นี่</h3>
+          <p>หรือคลิกเพื่อเลือกไฟล์ (.lua, .luau, .txt)</p>
+          <input type="file" id="fileInput" accept=".lua,.luau,.txt" hidden>
+          <button class="btn btn-primary btn-upload" onclick="document.getElementById('fileInput').click()">
+            <span>📤</span> Upload File
+          </button>
+        </div>
+        <div class="upload-divider">
+          <span>หรือวางโค้ดด้านล่าง</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Editor Section -->
+    <section class="editor-section">
+      <div class="editor-container">
+        <div class="editor-panel">
+          <div class="panel-header">
+            <h3>🔒 Obfuscated Code</h3>
+            <div class="panel-actions">
+              <button class="btn btn-small" onclick="clearInput()">🗑️ Clear</button>
+              <button class="btn btn-small" onclick="loadSample()">📋 Sample</button>
+            </div>
+          </div>
+          <div class="editor-wrapper">
+            <textarea id="inputCode" class="code-editor" placeholder="-- วางโค้ดที่ถูก obfuscate ที่นี่...&#10;-- หรืออัปโหลดไฟล์ด้านบน"></textarea>
+          </div>
+          <div class="panel-footer">
+            <span id="inputStats">0 chars, 0 lines</span>
+          </div>
+        </div>
+
+        <div class="controls-panel">
+          <button class="btn btn-deobfuscate" id="deobfuscateBtn" onclick="deobfuscate()">
+            <span class="btn-icon">⚡</span>
+            <span class="btn-text">Deobfuscate</span>
+          </button>
+
+          <div class="options-panel">
+            <h4>⚙️ Options</h4>
+            <label class="option-item">
+              <input type="checkbox" id="optDecodeStrings" checked>
+              <span>Decode Strings</span>
+            </label>
+            <label class="option-item">
+              <input type="checkbox" id="optSimplify" checked>
+              <span>Simplify Expressions</span>
+            </label>
+            <label class="option-item">
+              <input type="checkbox" id="optRemoveDead" checked>
+              <span>Remove Dead Code</span>
+            </label>
+            <label class="option-item">
+              <input type="checkbox" id="optRename" checked>
+              <span>Rename Variables</span>
+            </label>
+            <label class="option-item">
+              <input type="checkbox" id="optFormat" checked>
+              <span>Format Output</span>
+            </label>
+          </div>
+
+          <div class="status-panel" id="statusPanel" style="display:none">
+            <div class="status-spinner"></div>
+            <span id="statusText">Processing...</span>
+          </div>
+        </div>
+
+        <div class="editor-panel">
+          <div class="panel-header">
+            <h3>🔓 Deobfuscated Code</h3>
+            <div class="panel-actions">
+              <button class="btn btn-small" onclick="copyOutput()">📋 Copy</button>
+              <button class="btn btn-small btn-download" onclick="downloadOutput()">
+                <span>💾</span> Download File
+              </button>
+            </div>
+          </div>
+          <div class="editor-wrapper">
+            <textarea id="outputCode" class="code-editor output" readonly placeholder="-- ผลลัพธ์จะแสดงที่นี่..."></textarea>
+          </div>
+          <div class="panel-footer">
+            <span id="outputStats">0 chars, 0 lines</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Analysis Section -->
+    <section class="analysis-section" id="analysisSection" style="display:none">
+      <div class="analysis-card">
+        <h3>📊 Analysis Results</h3>
+        <div class="analysis-grid" id="analysisGrid"></div>
+        <div class="log-panel">
+          <h4>📝 Processing Log</h4>
+          <pre id="logOutput"></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>🔓 Lua Deobfuscator v1.0 — For educational purposes only</p>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
